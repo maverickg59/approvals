@@ -1,0 +1,91 @@
+Table request {
+  meeting_id int [ref: < meeting.meeting_id]
+  recurring boolean
+  requestor_id int [ref: - user.user_id]
+  approver_id int [ref: - user.user_id]
+  approval_status boolean
+}
+
+Table meeting {
+  meeting_id int
+  meeting_name string
+  organizer_id int [ref: - user.user_id]
+  internal_participant_id int [ref: < user.user_id]
+  external_participant_id int [ref: < external_contact.contact_id]
+  start_date datetime
+  end_date datetime
+  is_recurring boolean
+  meeting_narrative string
+  meeting_type int [ref: - meeting_type.meeting_type_id]
+  meeting_purpose int [ref: - meeting_purpose.meeting_purpose_id]
+  meeting_disclosure int [ref: - meeting_disclosure.meeting_disclosure_id]
+}
+
+Table meeting_type {
+  meeting_type_id int
+  meeting_type_name string
+}
+
+Table meeting_purpose {
+  meeting_purpose_id int
+  meeting_purpose_name string
+}
+
+Table meeting_disclosure {
+  meeting_disclosure_id int
+  classified_material_id integer
+  export_material_data_id integer
+}
+
+Table classified_meeting_material {
+  classified_material_id integer
+  classified_material string
+  classified_authorization string
+}
+
+Table export_material_data {
+  export_material_data_id integer
+  export_material_data string
+  export_material_data_authorization string
+}
+
+Table user {
+  user_id int
+  user_first_name string
+  user_last_name string
+  user_employee_id int
+  title string
+  organization int [ref: - organization.organization_id]
+  citizenship int [ref: < citizenship.country_id]
+  management_level int [ref: - management_level.management_level_id]
+}
+
+Table organization {
+  organization_id int
+  organization_name string
+}
+
+Table external_organization {
+  external_organization_id int
+  external_organization_name string
+}
+
+Table citizenship {
+  country_id int
+  country_name string
+}
+
+Table management_level {
+  management_level_id int
+  management_level_name string
+}
+
+Table external_contact {
+  contact_id int
+  contact_first_name string
+  contact_last_name string
+  contact_external_employee_id int
+  title string
+  external_organization_id int [ref: - external_organization.external_organization_id]
+  citizenship int [ref: < citizenship.country_id]
+}
