@@ -1,6 +1,5 @@
 Table request {
   meeting_id int [ref: < meeting.meeting_id]
-  recurring boolean
   requestor_id int [ref: - user.user_id]
   approver_id int [ref: - user.user_id]
   approval_status boolean
@@ -37,16 +36,18 @@ Table meeting_disclosure {
   export_material_data_id integer
 }
 
+// Classified Material
 Table classified_meeting_material {
   classified_material_id integer
   classified_material string
   classified_authorization string
 }
 
-Table export_material_data {
-  export_material_data_id integer
-  export_material_data string
-  export_material_data_authorization string
+// CUI, EAR, ITAR, Exportable Material / Data
+Table sensitive_meeting_material {
+  sensitive_meeting_material_id integer
+  sensitive_meeting_material string
+  sensitive_meeting_material_authorization string
 }
 
 Table user {

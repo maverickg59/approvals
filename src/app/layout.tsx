@@ -187,8 +187,8 @@ export default function RootLayout({
                   </SidebarItem>
                 </SidebarSection>
                 {/* sidebar link list (use to display open requests) */}
-                <SidebarSection className="max-lg:hidden">
-                  <SidebarHeading>Open Requests</SidebarHeading>
+                {/* <SidebarSection className="max-lg:hidden">
+                  <SidebarHeading>Pending Requests</SidebarHeading>
                   <SidebarItem href="/requests/1">
                     Vivek R. @ Oracle
                   </SidebarItem>
@@ -198,7 +198,7 @@ export default function RootLayout({
                   <SidebarItem href="/requests/3">Kaleem R. @ USAA</SidebarItem>
                   <SidebarItem href="/requests/4">Kevin P. @ Tesla</SidebarItem>
                 </SidebarSection>
-                <SidebarSpacer />
+                <SidebarSpacer /> */}
                 {/* <SidebarSection>
                   <SidebarItem href="/support">
                     <QuestionMarkCircleIcon />
