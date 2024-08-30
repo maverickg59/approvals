@@ -6,9 +6,13 @@ import {
   TableRow,
 } from "@/components/Atoms/table";
 
-export const Table: React.FC<TableData> = ({ cellLabels, children }) => {
+export const Table: React.FC<TableData> = ({
+  cellLabels,
+  children,
+  striped,
+}) => {
   return (
-    <TableContainer>
+    <TableContainer striped={striped}>
       <TableHead>
         <TableRow>
           {cellLabels.map((label) => {

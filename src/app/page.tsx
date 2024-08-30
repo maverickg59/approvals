@@ -113,12 +113,16 @@ export default function Home() {
           )
         )}
       </Table>
-      <Dialog open={isOpen} onClose={setIsOpen}>
+      <Dialog size="5xl" open={isOpen} onClose={setIsOpen}>
         <DialogTitle>Meeting Request</DialogTitle>
         <DialogDescription>
           This dialog is used to display and allow for approvals
         </DialogDescription>
-        <DialogBody>Meeting data table goes here</DialogBody>
+        <DialogBody>
+          Meeting Justification
+          <br />
+          Table
+        </DialogBody>
         <DialogActions className="items-end justify-between">
           <Field>
             <Label>Approval Status</Label>
