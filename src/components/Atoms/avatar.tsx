@@ -29,7 +29,7 @@ export function Avatar({
         className,
         // Basic layout
         "inline-grid shrink-0 align-middle [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1",
-        "outline outline-1 -outline-offset-1 outline-black/[--ring-opacity] dark:outline-white/[--ring-opacity]",
+        "w-8 outline outline-1 -outline-offset-1 outline-black/[--ring-opacity] dark:outline-white/[--ring-opacity]",
         // Add the correct border radius
         square
           ? "rounded-[--avatar-radius] *:rounded-[--avatar-radius]"
@@ -55,7 +55,7 @@ export function Avatar({
           </text>
         </svg>
       )}
-      {src && <Image width={16} height={16} src={src} alt={alt} />}
+      {src && <Image layout="fill" className="!relative" src={src} alt={alt} />}
     </span>
   );
 }

@@ -1,20 +1,18 @@
-Table request {
-  meeting_id int [ref: < meeting.meeting_id]
+Table meeting_request {
+  meeting_request_id int
   requestor_id int [ref: - user.user_id]
+  requester_first_name text
+  requester_last_name text
   approver_id int [ref: - user.user_id]
+  approver_first_name text
+  approver_last_name text
   approval_status boolean
-}
-
-Table meeting {
-  meeting_id int
-  meeting_name string
-  organizer_id int [ref: - user.user_id]
   internal_participant_id int [ref: < user.user_id]
   external_participant_id int [ref: < external_contact.contact_id]
   start_date datetime
   end_date datetime
   is_recurring boolean
-  meeting_narrative string
+  meeting_narrative text
   meeting_type int [ref: - meeting_type.meeting_type_id]
   meeting_purpose int [ref: - meeting_purpose.meeting_purpose_id]
   meeting_disclosure int [ref: - meeting_disclosure.meeting_disclosure_id]

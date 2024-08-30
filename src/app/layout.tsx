@@ -19,19 +19,19 @@ import {
   SidebarBody,
   SidebarFooter,
   SidebarHeader,
-  SidebarHeading,
+  // SidebarHeading,
   SidebarItem,
   SidebarLabel,
   SidebarSection,
-  SidebarSpacer,
+  // SidebarSpacer,
 } from "@/components/Molecules/sidebar";
 import {
   ArrowRightStartOnRectangleIcon,
-  ChevronDownIcon,
+  // ChevronDownIcon,
   ChevronUpIcon,
   Cog8ToothIcon,
   LightBulbIcon,
-  PlusIcon,
+  // PlusIcon,
   ShieldCheckIcon,
   UserIcon,
 } from "@heroicons/react/16/solid";
@@ -40,9 +40,9 @@ import {
   HomeIcon,
   InboxIcon,
   MagnifyingGlassIcon,
-  MegaphoneIcon,
-  QuestionMarkCircleIcon,
-  SparklesIcon,
+  // MegaphoneIcon,
+  // QuestionMarkCircleIcon,
+  // SparklesIcon,
   Square2StackIcon,
   TicketIcon,
 } from "@heroicons/react/20/solid";
@@ -86,7 +86,7 @@ export default function RootLayout({
                 </NavbarItem>
                 <Dropdown>
                   <DropdownButton as={NavbarItem}>
-                    <Avatar src="/profile-photo.jpg" square />
+                    <Avatar src="/cw_pro_pi_se.jpg" square />
                   </DropdownButton>
                   <DropdownMenu className="min-w-64" anchor="bottom end">
                     <DropdownItem href="/my-profile">
@@ -216,10 +216,10 @@ export default function RootLayout({
                   <DropdownButton as={SidebarItem}>
                     <span className="flex min-w-0 items-center gap-3">
                       <Avatar
-                        src="/profile-photo.jpg"
-                        className="size-10"
+                        initials="CW"
+                        src="/cw_pro_pi_se.jpg"
+                        alt="profile photo of user"
                         square
-                        alt=""
                       />
                       <span className="min-w-0">
                         <span className="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">

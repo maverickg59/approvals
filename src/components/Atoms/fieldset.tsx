@@ -35,7 +35,7 @@ export function Legend({
 export function FieldGroup({
   className,
   ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+}: Readonly<React.ComponentPropsWithoutRef<"div">>) {
   return (
     <div
       data-slot="control"
