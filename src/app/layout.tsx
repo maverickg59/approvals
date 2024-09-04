@@ -24,7 +24,7 @@ import {
   SidebarLabel,
   SidebarSection,
   // SidebarSpacer,
-} from "@/components/Molecules/sidebar";
+} from "@/components/Atoms/sidebar";
 import {
   ArrowRightStartOnRectangleIcon,
   // ChevronDownIcon,
@@ -49,6 +49,8 @@ import {
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
+import { RequestStoreProvider } from "@/providers/request-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -261,7 +263,7 @@ export default function RootLayout({
             </Sidebar>
           }
         >
-          {children}
+          <RequestStoreProvider>{children}</RequestStoreProvider>
         </SidebarLayout>
       </body>
     </html>
