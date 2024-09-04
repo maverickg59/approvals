@@ -1,20 +1,20 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ApprovalsDialog } from "./_components/approvals-dialog";
 import { Table } from "@/components/Molecules/table";
 import { TableRow, TableCell } from "@/components/Atoms/table";
 import { Badge } from "@/components/Atoms/badge";
-import { cellData, cellLabels } from "@/data/data";
 
 import { useRequestStore } from "@/providers/request-provider";
+import { useUserStore } from "@/providers/user-provider";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [rowIndex, setRowIndex] = useState<number>(0);
 
-  const { meeting_requests, meeting_request_labels } = useRequestStore(
-    (state) => state
-  );
+  const { meeting_requests, meeting_request_labels, update_meeting_request } =
+    useRequestStore((state) => state);
+  const { user } = useUserStore((state) => state);
 
   return (
     <main className="flex flex-col justify-between">
@@ -67,8 +67,10 @@ export default function Home() {
       </Table>
       <ApprovalsDialog
         setIsOpen={setIsOpen}
+        updateMeeting={update_meeting_request}
         isOpen={isOpen}
-        rowIndex={rowIndex}
+        meeting={meeting_requests[rowIndex]}
+        userLevel={user.user_level}
       />
     </main>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogActions,
@@ -10,26 +10,74 @@ import {
 import { Button } from "@/components/Atoms/button";
 import { Field, Label } from "@/components/Atoms/fieldset";
 import { Select } from "@/components/Atoms/select";
-import { useRequestStore } from "@/providers/request-provider";
 import {
   DescriptionDetails,
   DescriptionList,
   DescriptionTerm,
 } from "@/components/Atoms/description-list";
+import { Input } from "@/components/Atoms/input";
+import {
+  XMarkIcon,
+  PencilSquareIcon,
+  CheckIcon,
+} from "@heroicons/react/24/outline";
 
 type Props = {
-  setIsOpen: (arg: boolean) => void;
   isOpen: boolean;
-  rowIndex: number;
+  setIsOpen: (arg: boolean) => void;
+  meeting: MeetingRequest;
+  updateMeeting: (response: MeetingRequest, meeting_request_id: number) => void;
+  userLevel: string;
 };
 
-export const ApprovalsDialog = ({ setIsOpen, isOpen, rowIndex }: Props) => {
-  const { meeting_requests, update_meeting } = useRequestStore(
-    (state) => state
+type EditableDescriptionListProps = {
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
+  label: string;
+  value: string;
+};
+
+const EditableDescriptionListInput = ({
+  isEditing,
+  setIsEditing,
+  label,
+  value,
+}: EditableDescriptionListProps) => {
+  return isEditing ? (
+    <>
+      <DescriptionTerm>
+        {label}
+        <Button plain onClick={() => setIsEditing(false)}>
+          <XMarkIcon />
+        </Button>
+        <Button plain onClick={() => setIsEditing(false)}>
+          <CheckIcon />
+        </Button>
+      </DescriptionTerm>
+      <DescriptionDetails className="flex">
+        <Input value={value} />
+      </DescriptionDetails>
+    </>
+  ) : (
+    <>
+      <DescriptionTerm>
+        {label}
+        <Button plain onClick={() => setIsEditing(true)}>
+          <PencilSquareIcon />
+        </Button>
+      </DescriptionTerm>
+      <DescriptionDetails>{value}</DescriptionDetails>
+    </>
   );
+};
 
-  const meeting = meeting_requests[rowIndex];
-
+export const ApprovalsDialog = ({
+  isOpen,
+  setIsOpen,
+  meeting,
+  updateMeeting,
+  userLevel,
+}: Props) => {
   const {
     meeting_request_id,
     requester_first_name,
@@ -47,8 +95,11 @@ export const ApprovalsDialog = ({ setIsOpen, isOpen, rowIndex }: Props) => {
     meeting_disclosure: { sensitive, classified },
   } = meeting;
 
-  const [selectApprovalStatus, setSelectApprovalStatus] =
-    useState(approval_status);
+  const [selectApprovalStatus, setSelectApprovalStatus] = useState("");
+
+  useEffect(() => setSelectApprovalStatus(approval_status), [approval_status]);
+
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <Dialog size="5xl" open={isOpen} onClose={setIsOpen}>
@@ -62,8 +113,19 @@ export const ApprovalsDialog = ({ setIsOpen, isOpen, rowIndex }: Props) => {
           <DescriptionDetails>{meeting_request_id}</DescriptionDetails>
           <DescriptionTerm>Requester</DescriptionTerm>
           <DescriptionDetails>{`${requester_first_name} ${requester_last_name}`}</DescriptionDetails>
-          <DescriptionTerm>Start Date</DescriptionTerm>
-          <DescriptionDetails>{start_date}</DescriptionDetails>
+          {userLevel !== "contributor" ? (
+            <>
+              <DescriptionTerm>Start Date</DescriptionTerm>
+              <DescriptionDetails>{start_date}</DescriptionDetails>
+            </>
+          ) : (
+            <EditableDescriptionListInput
+              isEditing={isEditing}
+              setIsEditing={setIsEditing}
+              label="Start Date"
+              value={start_date}
+            />
+          )}
           <DescriptionTerm>External Participants</DescriptionTerm>
           <DescriptionDetails>
             {external.map((participant) => (
@@ -131,7 +193,7 @@ export const ApprovalsDialog = ({ setIsOpen, isOpen, rowIndex }: Props) => {
                 approval_status: selectApprovalStatus,
               };
               // use the response to update zustand
-              update_meeting(response, meeting_request_id);
+              updateMeeting(response, meeting_request_id);
               setIsOpen(!isOpen);
             }}
           >

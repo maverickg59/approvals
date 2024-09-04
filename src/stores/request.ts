@@ -7,7 +7,7 @@ type RequestState = {
 };
 
 type RequestActions = {
-  update_meeting: (
+  update_meeting_request: (
     meeting_request: MeetingRequest,
     meeting_request_id: number
   ) => void;
@@ -20,17 +20,24 @@ export const defaultInitState: RequestState = {
   meeting_request_labels: cellLabels,
 };
 
+function filterRequests(
+  meetingRequests: MeetingRequestState,
+  meetingRequestId: number
+) {
+  return meetingRequests.filter(
+    (meeting) => meeting.meeting_request_id !== meetingRequestId
+  );
+}
+
 export const createRequestStore = (
   initState: RequestState = defaultInitState
 ) => {
   return createStore<RequestStore>()((set) => ({
     ...initState,
-    update_meeting: (meeting_request, meeting_request_id) => {
+    update_meeting_request: (meeting_request, meeting_request_id) => {
       set(({ meeting_requests }) => ({
         meeting_requests: [
-          ...meeting_requests.filter(
-            (meeting) => meeting.meeting_request_id !== meeting_request_id
-          ),
+          ...filterRequests(meeting_requests, meeting_request_id),
           meeting_request,
         ],
       }));

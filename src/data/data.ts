@@ -141,3 +141,22 @@ export const cellData = [
     },
   },
 ];
+
+export const users = [
+  {
+    user_id: 1,
+    user_level: "contributor",
+  },
+  {
+    user_id: 2,
+    user_level: "manager",
+  },
+  {
+    user_id: 3,
+    user_level: "director",
+  },
+  {
+    user_id: 4,
+    user_level: "executive",
+  },
+];
